@@ -2,7 +2,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"],
-      "@/index/*": ["/app/(pages)/index/components/sections/*"]
+      "@/index/*": ["/app/(pages)/index/components/sections/*"],
+      "@/base/*": ["/components/base/*"]
     }
   }
 }

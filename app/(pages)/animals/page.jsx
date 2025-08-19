@@ -1,7 +1,8 @@
+import { baseUrl } from "@/utils/baseUrl";
 import Image from "next/image";
 
 export default async function AnimalsPage() {
-  const fetchAnimals = await fetch("http://localhost:3000/api/animals", {
+  const fetchAnimals = await fetch(`${baseUrl}/api/animals`, {
     cache: "no-store",
   });
 

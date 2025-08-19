@@ -1,3 +1,4 @@
+import { baseUrl } from "@/utils/baseUrl";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,12 +7,9 @@ export default async function DynamicPageWithApiFetch({
   endpoint,
   value,
 }) {
-  const magicDataRequest = await fetch(
-    `http://localhost:3000/api/${endpoint}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const magicDataRequest = await fetch(`${baseUrl}/api/${endpoint}`, {
+    cache: "no-store",
+  });
 
   const magicDataResult = await magicDataRequest.json();
 

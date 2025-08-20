@@ -17,7 +17,7 @@ export default async function DataBaseDataPage() {
     <>
       {/* <Suspense fallback={<div>Loading...</div>}> */}
       <section className="min-h-screen flex justify-center items-center bg-fuchsia-400">
-        <h1>This pages shows the content of our mongoDB database</h1>
+        <h1>This pages shows the cooler content of our mongoDB database</h1>
         <ul>
           {items.map((item) => (
             <li key={item._id}>{item.name}</li>

@@ -22,14 +22,14 @@ export const Header = () => {
       </Link>
       <Link
         className={`${
-          currentUrl === "/subpage" && "underline"
+          currentUrl === "/subpage" && "underline text-orange-500"
         } underline-offset-2`}
         href="/subpage">
         SubPage
       </Link>
       <Link
         className={`${
-          currentUrl === "/deeppage" && "underline"
+          currentUrl === "/deeppage" && "underline text-orange-500"
         } underline-offset-2`}
         href="/deeppage">
         DeepPage
@@ -37,7 +37,7 @@ export const Header = () => {
       
       <Link
         className={`${
-          currentUrl === "/animals" && "underline"
+          currentUrl === "/animals" && "underline text-orange-500"
         } underline-offset-2`}
         href="/animals">
         Animals
@@ -45,7 +45,7 @@ export const Header = () => {
 
       <Link
         className={`${
-          currentUrl === "/magicProducts" && "underline"
+          currentUrl === "/magicProducts" && "underline text-orange-500"
         } underline-offset-2`}
         href="/magicProducts">
         MagicProducts

@@ -13,7 +13,7 @@ export default async function AnimalsPage() {
   return (
     <>
       <section className="min-h-screen py-24 flex flex-col justify-center items-center bg-purple-300">
-        <h1>Animals</h1>
+        <h1>Cooler Animals</h1>
         <div className="grid grid-col-1 md:grid-cols-3 gap-6">
           {animals.map((animal) => (
             <div

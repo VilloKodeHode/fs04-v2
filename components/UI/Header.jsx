@@ -34,6 +34,22 @@ export const Header = () => {
         href="/deeppage">
         DeepPage
       </Link>
+      
+      <Link
+        className={`${
+          currentUrl === "/animals" && "underline"
+        } underline-offset-2`}
+        href="/animals">
+        Animals
+      </Link>
+
+      <Link
+        className={`${
+          currentUrl === "/magicProducts" && "underline"
+        } underline-offset-2`}
+        href="/magicProducts">
+        MagicProducts
+      </Link>
     </header>
   );
 };

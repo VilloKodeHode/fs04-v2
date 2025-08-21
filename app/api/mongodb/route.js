@@ -9,3 +9,13 @@ export async function GET() {
 
   return Response.json(items);
 }
+
+export async function POST(request) {
+  const data = await request.json();
+  const dbConnection = await connectToDataBase();
+  const result = await dbConnection
+    .collection("testing-items")
+    .insertOne({ ...data });
+
+  return Response.json({ insertedId: result.insertedId });
+}

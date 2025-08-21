@@ -18,7 +18,7 @@ export const ItemList = ({ initialItems }) => {
   }
 
   async function deleteItem(id) {
-    await fetch(`/api/mongodb${id}`, { method: "DELETE" });
+    await fetch(`/api/mongodb/${id}`, { method: "DELETE" });
     setItems(items.filter((item) => item._id !== id));
   }
 

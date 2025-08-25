@@ -21,18 +21,18 @@ export const metadata = {
   openGraph: {
     title: "fs04-v02",
     description: "Nettside for å vise frem studenter hvordan å kode i Next.js",
+    url: "https://fs04-v2.vercel.app",
+    type: "website",
+    images: [
+      {
+        url: "/crystals.jpg",
+        width: 1200,
+        height: 630,
+        alt: "crystals for some reason",
+        type: "image/jpg",
+      },
+    ],
   },
-  url: "https://fs04-v2.vercel.app",
-  type: "website",
-  images: [
-    {
-      url: "/crystals.jpg",
-      width: 1200,
-      height: 630,
-      alt: "crystals for some reason",
-      type: "image/jpg",
-    },
-  ],
 };
 
 export default function RootLayout({ children }) {

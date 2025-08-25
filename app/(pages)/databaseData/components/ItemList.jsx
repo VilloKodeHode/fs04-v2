@@ -1,6 +1,5 @@
 "use client";
 
-import { baseUrl } from "@/utils/baseUrl";
 import { useEffect, useState } from "react";
 
 export const ItemList = ({ initialItems }) => {
@@ -25,6 +24,9 @@ export const ItemList = ({ initialItems }) => {
   //   useEffect(() => {
   //     console.log(newItem);
   //   }, [newItem]);
+
+
+  
 
   return (
     <>

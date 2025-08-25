@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 export const ItemList = ({ initialItems }) => {
   const [items, setItems] = useState(initialItems);
   const [newItem, setNewItem] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editingName, setEditingName] = useState("");
 
   async function addItem() {
     const res = await fetch(`/api/mongodb`, {
@@ -25,8 +27,47 @@ export const ItemList = ({ initialItems }) => {
   //     console.log(newItem);
   //   }, [newItem]);
 
+  //UPDATE function:
 
-  
+  function startEditing(item) {
+    setEditingId(item._id);
+    setEditingName(item.name);
+  }
+
+  function cancelEditing() {
+    setEditingId(null);
+    setEditingName("");
+  }
+
+  async function saveEdit(id) {
+    const prev = items;
+    const next = items.map((item) =>
+      item._id === id ? { ...item, name: editingName } : item
+    );
+    setItems(next);
+
+    try {
+      const res = await fetch(`api/mongodb/${id}`, {
+        method: "PUT",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: editingName }),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok || !json.updated) {
+        setItems(prev);
+        throw new Error("Failed to update item");
+      }
+    } catch (error) {
+      setItems(prev);
+    } finally {
+      cancelEditing();
+    }
+  }
 
   return (
     <>
@@ -46,14 +87,41 @@ export const ItemList = ({ initialItems }) => {
       <ul>
         {items.map((item) => (
           <li
-            className="p-4 m-2 flex items-center justify-between bg-fuchsia-900 text-white border-2 border-fuchsia-950"
+            className="p-4 relative m-2 flex items-center justify-between bg-fuchsia-900 text-white border-2 border-fuchsia-950"
             key={item._id}>
-            {item.name}
-            <button
-              onClick={() => deleteItem(item._id)}
-              className="p-2 font-bold text-red-500 active:text-white">
-              X
-            </button>
+            {editingId === item._id ? (
+              <>
+                <input
+                  value={editingName}
+                  onChange={(e) => setEditingName(e.target.value)}
+                  autoFocus
+                />
+                <button
+                  className="border m-2 p-2 bg-green-600"
+                  onClick={() => saveEdit(item._id)}>
+                  Save
+                </button>
+                <button
+                  className="border m-2 p-2 bg-red-600"
+                  onClick={cancelEditing}>
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <>
+                <span>{item.name}</span>
+                <button
+                  className="border m-2 p-2 bg-slate-600"
+                  onClick={() => startEditing(item)}>
+                  Edit
+                </button>
+                <button
+                  onClick={() => deleteItem(item._id)}
+                  className="p-2 absolute -top-5 border-2 bg-slate-900 border-slate-700 -right-4 hover:scale-150 cursor-pointer font-bold text-red-500 active:text-white">
+                  X
+                </button>
+              </>
+            )}
           </li>
         ))}
       </ul>

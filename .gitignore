@@ -42,3 +42,8 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+#observability
+.unlighthouse
+# clerk configuration (can include secrets)
+/.clerk/

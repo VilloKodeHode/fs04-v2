@@ -1,6 +1,7 @@
 import { Figtree, Macondo } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/UI/Header";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const figTree = Figtree({
   variable: "--font-figtree",
@@ -37,11 +38,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={`${macondo.className} antialiased bg-black`}>
         <Header />
         <main className="grid gap-24 mb-24">{children}</main>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

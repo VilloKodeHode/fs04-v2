@@ -91,7 +91,7 @@ export const ItemList = ({ initialItems }) => {
       <ul>
         {items.map((item) => (
           <li
-            className="p-4 overflow-hidden relative m-2 flex items-center justify-between bg-fuchsia-900 text-white border-2 border-fuchsia-950"
+            className="min-w-80 p-4 overflow-hidden relative m-2 flex items-center justify-between bg-fuchsia-900 text-white border-2 border-fuchsia-950"
             key={item._id}
           >
             {editingId === item._id ? (
@@ -117,7 +117,7 @@ export const ItemList = ({ initialItems }) => {
               </>
             ) : (
               <>
-                <span>{item.name}</span>
+                <span className="max-w-30">{item.name}</span>
                 <button
                   className="border z-10 m-2 p-2 bg-slate-600"
                   onClick={() => startEditing(item)}

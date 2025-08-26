@@ -7,6 +7,8 @@ import { useState } from "react";
 export const ItemList = ({ initialItems }) => {
   const { isLoaded, isSignedIn, user } = useUser();
 
+  console.log(user)
+
   const [items, setItems] = useState(initialItems);
   const [newItem, setNewItem] = useState("");
   const [editingId, setEditingId] = useState(null);
@@ -15,10 +17,10 @@ export const ItemList = ({ initialItems }) => {
   async function addItem() {
     const res = await fetch(`/api/mongodb`, {
       method: "POST",
-      body: JSON.stringify({ name: newItem }),
+      body: JSON.stringify({ name: newItem, ...user }),
     });
     const newItemRes = await res.json();
-    setItems([...items], { _id: newItemRes.insertedId, name: newItem });
+    setItems([...items], { _id: newItemRes.insertedId, name: newItem, ...user });
     setNewItem("");
   }
 
@@ -131,7 +133,7 @@ export const ItemList = ({ initialItems }) => {
               </>
             )}
             {isLoaded && isSignedIn && (
-              <Image src={user.imageUrl} width={200} height={200} className="bg-fuchsia-100 rounded-full absolute opacity-60 -right-12" />
+              <Image alt="user image" src={item.imageUrl} width={200} height={200} className="bg-fuchsia-100 rounded-full absolute opacity-60 -right-12" />
             )}
           </li>
         ))}

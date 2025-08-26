@@ -1,22 +1,20 @@
 import { connectToDataBase } from "@/lib/mongoDBConnect";
-import { auth } from "@clerk/nextjs/server";
 
-export async function POST() {
-  const { userId } = await auth();
-  console.log(userId);
+export async function POST(request) {
+  // const { userId } = await auth();
+  // console.log(userId);
+  const userInfo = await request.json();
 
-  if (!userId) return new Response("Unauthorized", { status: 401 });
+  if (!userInfo) return new Response("Unauthorized", { status: 401 });
 
   const db = await connectToDataBase();
   const existingUser = await db
     .collection("users")
-    .findOne({ clerkId: userId });
+    .findOne({ id: userInfo.id });
 
   if (!existingUser) {
-    await db
-      .collection("users")
-      .insertOne({ clerkId: userId, createdAt: new Date() });
+    await db.collection("users").insertOne({ ...userInfo });
   }
 
-  return new Response(JSON.stringify({ userId }), { status: 200 });
+  return new Response(JSON.stringify({ userInfo }), { status: 200 });
 }

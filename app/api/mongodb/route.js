@@ -12,15 +12,15 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const { userId } = await auth();
+  // const { userId } = await auth();
 
-  if (!userId) return;
+  // if (!userId) return;
 
   const data = await request.json();
   const dbConnection = await connectToDataBase();
   const result = await dbConnection
     .collection("testing-items")
-    .insertOne({ ...data, ownerId: userId });
+    .insertOne({ imageUrl: data.imageUrl, id: data.id, name: data.name });
 
   return Response.json({ insertedId: result.insertedId });
 }

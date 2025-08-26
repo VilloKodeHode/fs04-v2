@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
+import { useState } from "react";
 
 export const ItemList = ({ initialItems }) => {
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const [items, setItems] = useState(initialItems);
   const [newItem, setNewItem] = useState("");
   const [editingId, setEditingId] = useState(null);
@@ -78,32 +82,34 @@ export const ItemList = ({ initialItems }) => {
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
         />
-        <button
-          onClick={addItem}
-          className="bg-green-400">
+        <button onClick={addItem} className="bg-green-400">
           Add
         </button>
       </div>
       <ul>
         {items.map((item) => (
           <li
-            className="p-4 relative m-2 flex items-center justify-between bg-fuchsia-900 text-white border-2 border-fuchsia-950"
-            key={item._id}>
+            className="p-4 overflow-hidden relative m-2 flex items-center justify-between bg-fuchsia-900 text-white border-2 border-fuchsia-950"
+            key={item._id}
+          >
             {editingId === item._id ? (
               <>
                 <input
+                className="z-10"
                   value={editingName}
                   onChange={(e) => setEditingName(e.target.value)}
                   autoFocus
                 />
                 <button
-                  className="border m-2 p-2 bg-green-600"
-                  onClick={() => saveEdit(item._id)}>
+                  className="border z-10 m-2 p-2 bg-green-600"
+                  onClick={() => saveEdit(item._id)}
+                >
                   Save
                 </button>
                 <button
-                  className="border m-2 p-2 bg-red-600"
-                  onClick={cancelEditing}>
+                  className="border z-10 m-2 p-2 bg-red-600"
+                  onClick={cancelEditing}
+                >
                   Cancel
                 </button>
               </>
@@ -111,16 +117,21 @@ export const ItemList = ({ initialItems }) => {
               <>
                 <span>{item.name}</span>
                 <button
-                  className="border m-2 p-2 bg-slate-600"
-                  onClick={() => startEditing(item)}>
+                  className="border z-10 m-2 p-2 bg-slate-600"
+                  onClick={() => startEditing(item)}
+                >
                   Edit
                 </button>
                 <button
                   onClick={() => deleteItem(item._id)}
-                  className="p-2 absolute -top-5 border-2 bg-slate-900 border-slate-700 -right-4 hover:scale-150 cursor-pointer font-bold text-red-500 active:text-white">
+                  className="absolute z-10 px-1 top-0 border-b-2 border-l-2 bg-slate-900 border-slate-700 right-0 hover:scale-150 cursor-pointer font-bold text-red-500 active:text-white"
+                >
                   X
                 </button>
               </>
+            )}
+            {isLoaded && isSignedIn && (
+              <Image src={user.imageUrl} width={200} height={200} className="bg-fuchsia-100 rounded-full absolute opacity-60 -right-12" />
             )}
           </li>
         ))}

@@ -2,7 +2,8 @@ import { ScreenSection } from "@/components/base/Sections";
 // import BoxSection from "./(pages)/index/components/sections/BoxSection";
 import BoxSection from "@/index/BoxSection";
 
-export default function HomePage() {
+export default async function HomePage() {
+
   return (
     <>
       <ScreenSection className="bg-orange-800">

@@ -52,6 +52,14 @@ export const Header = () => {
         >
           DeepPage
         </Link>
+           <Link
+          href="/databaseData"
+          className={`${
+            currentUrl === "/" && "underline text-orange-500"
+          } underline-offset-2`}
+        >
+          CRUD
+        </Link>
       </div>
     </header>
   );
